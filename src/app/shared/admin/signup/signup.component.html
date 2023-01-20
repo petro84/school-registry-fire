@@ -1,0 +1,90 @@
+<p-dialog [(visible)]="showDialog" (onHide)="close()">
+  <h3 class="text-center">Create Account</h3>
+  <form [formGroup]="form" (ngSubmit)="createAccount(form.value)">
+    <div class="card mt-4">
+      <div class="field grid">
+        <label for="name" class="col-12 mb-2 md:col-2 md:mb-0">Email</label>
+        <div class="col-12 md:col-8 md:col-offset-2">
+          <input
+            type="email"
+            formControlName="email"
+            id="email"
+            [ngClass]="{
+              'ng-dirty ng-invalid':
+                !form.controls['email'].valid && form.controls['email'].touched
+            }"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          />
+        </div>
+        <span
+          *ngIf="form.controls['email']?.errors"
+          class="col-12 md:col-8 md:col-offset-4 mt-2"
+        >
+          <p-message
+            *ngIf="
+              !form.controls['email'].valid && form.controls['email'].touched
+            "
+            severity="error"
+            text="Field is required."
+            class="block"
+          ></p-message>
+        </span>
+      </div>
+      <div class="field grid">
+        <label for="password" class="col-12 mb-2 md:col-2 md:mb-0"
+          >Password</label
+        >
+        <div class="col-12 md:col-8 md:col-offset-2">
+          <input
+            type="password"
+            formControlName="password"
+            id="password"
+            [ngClass]="{
+              'ng-dirty ng-invalid':
+                !form.controls['password'].valid &&
+                form.controls['password'].touched
+            }"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          />
+        </div>
+        <span
+          *ngIf="form.controls['password']?.errors"
+          class="col-12 md:col-8 md:col-offset-4 mt-2"
+        >
+          <p-message
+            *ngIf="
+              !form.controls['password'].valid &&
+              form.controls['password'].touched
+            "
+            severity="error"
+            text="Field is required."
+            class="block"
+          ></p-message>
+        </span>
+      </div>
+    </div>
+    <div class="flex justify-content-center my-4">
+      <button
+        pButton
+        pRipple
+        type="submit"
+        label="Create"
+        class="mx-4"
+        icon="pi pi-check"
+        [disabled]="form.invalid"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Cancel"
+        class="p-button-secondary mx-4"
+        icon="pi pi-times"
+        (click)="close()"
+      ></button>
+    </div>
+  </form>
+  <div class="my-5 text-center">
+    <p-messages></p-messages>
+  </div>
+</p-dialog>

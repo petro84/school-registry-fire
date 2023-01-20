@@ -1,0 +1,66 @@
+<p-dialog [(visible)]="showLoginDialog" (onHide)="close()">
+  <h3 class="text-center">Admin Login</h3>
+  <form [formGroup]="form" (ngSubmit)="verifyCredentials(form.value)">
+    <section class="flex justify-content-center">
+      <div class="flex flex-column">
+        <div class="flex align-items-center my-3">
+          <label for="email" class="mx-3 w-5">Email</label>
+          <input
+            type="email"
+            class="p-inputtext p-component w-7"
+            formControlName="email"
+            name="email"
+          />
+          <p-message
+            *ngIf="
+              !form.controls['email'].valid &&
+              form.controls['email'].touched
+            "
+            severtity="error"
+            text="Field is required"
+          ></p-message>
+        </div>
+        <div class="flex align-items-center my-3">
+          <label for="password" class="mx-3 w-5">Password</label>
+          <input
+            type="password"
+            formControlName="password"
+            name="password"
+            class="p-inputtext p-component w-7"
+          />
+          <p-message
+            *ngIf="
+              !form.controls['password'].valid &&
+              form.controls['password'].touched
+            "
+            severity="error"
+            text="Field is required"
+          ></p-message>
+        </div>
+      </div>
+    </section>
+    <div class="flex justify-content-center my-4">
+      <button
+        pButton
+        pRipple
+        type="submit"
+        label="Login"
+        icon="pi pi-check"
+        class="mx-4"
+        [disabled]="form.invalid"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Cancel"
+        icon="pi pi-times"
+        class="pi-button-secondary mx-4"
+        (click)="close()"
+      ></button>
+    </div>
+  </form>
+  <div class="my-5 text-center">
+    <p-messages></p-messages>
+  </div>
+</p-dialog>

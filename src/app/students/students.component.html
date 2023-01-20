@@ -1,0 +1,88 @@
+<div class="flex flex-column h-full">
+  <section>
+    <div class="lg:px-8 md:px-6 px-4 surface-ground">
+      <div class="card lg:flex lg:justify-content-center">
+        <p-table
+          [value]="students"
+          [scrollable]="true"
+          scrollHeight="400px"
+          responsiveLayout="scroll"
+          [breakpoint]="'960px'"
+          [tableStyle]="{ 'min-width': '50rem' }"
+        >
+          <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-start">
+              {{ teacherName }}'s class
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th></th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Student Info</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-student let-columns="columns">
+            <tr>
+              <td>
+                <p-avatar
+                *ngIf="!student.avatar"
+                  icon="pi pi-user"
+                  size="large"
+                  shape="circle"
+                ></p-avatar>
+                <img *ngIf="student.avatar" [src]="student.avatar" style="border-radius: 100%; width: 75px; height: 75px;" />
+              </td>
+              <td>
+                {{ student.firstName }}
+              </td>
+              <td>
+                {{ student.lastName }}
+              </td>
+              <td>
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  class="p-button-raised p-button-rounded"
+                  (click)="openStudentInfo(student)"
+                >
+                  <fa-icon [icon]="faBookReader"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td class="justify-content-center">
+                There are no students in this class.
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </section>
+  <section class="flex justify-content-center gap-4 mb-4">
+    <button
+      pButton
+      pRipple
+      type="button"
+      class="p-button-rasied p-button-rounded"
+      (click)="registerStudent()"
+    >
+      <fa-icon [icon]="faBookReader" class="mx-2"></fa-icon>
+      Register Student
+    </button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-home"
+      label="Home"
+      class="p-button-raised p-button-rounded ml-5"
+      (click)="home()"
+    ></button>
+  </section>
+</div>

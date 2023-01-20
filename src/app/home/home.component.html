@@ -1,0 +1,55 @@
+<div class="surface-overlay m-2">
+  <h1 class="text-center">Local Elementary</h1>
+  <section class="mt-3 lg:mt-7">
+    <h2 class="text-center">Welcome!</h2>
+    <p class="text-center w-6 mt-3 mx-auto text-xl line-height-3">
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus
+      iure recusandae sunt, in explicabo incidunt ea aspernatur! Repudiandae nam
+      architecto earum, quia iusto maiores aliquam doloremque corrupti commodi
+      autem asperiores.
+    </p>
+    <p class="text-center w-6 mt-3 mx-auto text-xl line-height-3">
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus
+      iure recusandae sunt, in explicabo incidunt ea aspernatur! Repudiandae nam
+      architecto earum, quia iusto maiores aliquam doloremque corrupti commodi
+      autem asperiores.
+    </p>
+  </section>
+  <section class="flex flex-column">
+    <div class="flex justify-content-center my-4">
+      <button
+        pButton
+        pRipple
+        type="button"
+        class="p-button-raised p-button-rounded p-button-lg"
+        [routerLink]="['/teachers']"
+      >
+        All Teachers
+      </button>
+    </div>
+    <div class="flex justify-content-around my-4">
+      <button
+        pButton
+        pRipple
+        type="button"
+        class="p-button-raised p-button-rounded"
+        *ngFor="let grade of grades"
+        [routerLink]="['/teachers', grade.gradeId]"
+      >
+        {{ grade.description }}
+      </button>
+    </div>
+    <div class="flex justify-content-center my-4">
+      <button
+        pButton
+        pRipple
+        type="button"
+        class="p-button-raised p-button-rounded"
+        [routerLink]="['/student']"
+      >
+        <fa-icon [icon]="faBookReader" class="mx-2"></fa-icon>
+        Register Student
+      </button>
+    </div>
+  </section>
+</div>
