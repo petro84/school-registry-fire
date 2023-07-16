@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "school-registry-fire": {
+      "hosting": {
+        "school-registry-fire": [
+          "school-registry-fire"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "school-registry-fire"
+  }
+}

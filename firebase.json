@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "school-registry-fire",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}
