@@ -1,1 +1,167 @@
-<p>teacher-student-form works!</p>
+<form [formGroup]="form" (ngSubmit)="save(form.value)">
+  <div class="px-4 py-8 md:px-6 lg:px-8">
+    <div class="flex flex-column lg:flex-row">
+      <div class="p-5 shadow-2 border-round flex-auto">
+        <div class="text-900 font-semibold text-lg mt-3">
+          {{ formType | titlecase }} Info
+        </div>
+        <p-divider></p-divider>
+        <div class="flex gap-5 md:flex-row">
+          <div class="flex flex-column align-items-center">
+            <p-avatar
+              *ngIf="!form.controls['avatar'].value"
+              icon="pi pi-user"
+              styleClass="mr-2"
+              size="xlarge"
+              shape="circle"
+            ></p-avatar>
+            <img
+              *ngIf="form.controls['avatar'].value"
+              [src]="form.controls['avatar'].value"
+              style="border-radius: 100%"
+            />
+            <button
+              pButton
+              pRipple
+              label="Edit"
+              type="button"
+              icon="pi pi-user-edit"
+              class="mt-2"
+              (click)="displayEditor = true"
+            ></button>
+          </div>
+          <div class="formgrid grid w-full">
+            <div
+              class="field col-12 md:col-2 md:col-offset-1"
+              *ngIf="formType === 'teacher'"
+            >
+              <label for="title" class="block font-medium text-900">
+                Title</label
+              >
+              <p-dropdown
+                [options]="titles"
+                placeholder="Select"
+                formControlName="title"
+              ></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-4" [ngClass]="{ 'md:col-5 md:col-offset-1': formType === 'student' }">
+              <label for="firstName" class="block font-medium text-900"
+                >First Name</label
+              >
+              <input
+                pInputText
+                formControlName="firstName"
+                class="p-inputtext p-comment w-full"
+                [value]="form.controls['firstName'].value | titlecase"
+                type="text"
+              />
+            </div>
+            <div class="field col-12 md:col-4" [ngClass]="{ 'md:col-5': formType === 'student' }">
+              <label for="lastName" class="block font-medium text-900"
+                >Last Name</label
+              >
+              <input
+                pInputText
+                formControlName="lastName"
+                class="p-inputtext p-comment w-full"
+                [value]="form.controls['lastName'].value | titlecase"
+                type="text"
+              />
+            </div>
+            <div
+              class="field col-12"
+              [ngClass]="{ 'md:col-4 md:col-offset-3': formType === 'teacher', 'md:col-5 md:col-offset-1': formType === 'student' }"
+            >
+              <label for="grade" class="block font-medium text-900"
+                >Grade</label
+              >
+              <p-dropdown
+                [options]="grades"
+                placeholder="Select"
+                formControlName="grade"
+                optionLabel="description"
+                optionValue="gradeId"
+                [style]="{ width: '100%' }"
+              ></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-4" *ngIf="formType === 'teacher'">
+              <label for="classSize" class="block font-medium text-900"
+                >Class Size</label
+              >
+              <p-inputNumber
+                formControlName="classSize"
+                mode="decimal"
+                [showButtons]="true"
+              ></p-inputNumber>
+            </div>
+            <div class="field col-12 md:col-5" *ngIf="formType === 'student'">
+              <label for="teacher" class="block font-medium text-900">Teacher</label>
+              <input pInputText formControlName="teacher" placeholder="Teacher" type="text" class="p-inputtext p-component" [readOnly]="true">
+            </div>
+            <div
+              class="field col-12"
+              [ngClass]="{ 'md:col-4 md:col-offset-3': formType === 'teacher', 'md:col-5 md:col-offset-1': formType === 'student' }"
+            >
+              <label for="phone" class="block font-medium text-900"
+                >Phone #</label
+              >
+              <p-inputMask
+                formControlName="phone"
+                mask="999-999-9999"
+                placeholder="999-999-9999"
+              ></p-inputMask>
+            </div>
+            <div
+              class="field col-12"
+              [ngClass]="{ 'md:col-4': formType === 'teacher', 'md:col-5': formType === 'student' }"
+            >
+              <label for="email" class="block font-medium text-900"
+                >Email</label
+              >
+              <input
+                pInputText
+                type="email"
+                formControlName="email"
+                class="p-inputtext p-component"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-content-center mt-4">
+          <button
+            pButton
+            pRipple
+            label="Save"
+            type="submit"
+            icon="pi pi-check"
+            class="mx-2"
+            [disabled]="form.invalid"
+          ></button>
+          <button
+            pButton
+            pRipple
+            label="Delete"
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-danger mx-2"
+            (click)="delete()"
+          ></button>
+          <button
+            pButton
+            pRipple
+            label="Cancel"
+            type="button"
+            icon="pi pi-times"
+            class="p-button-secondary mx-2"
+            (click)="close()"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<sr-photo-editor
+  [displayEditor]="displayEditor"
+  (close)="displayEditor = false"
+  (croppedImg)="updateImg($event)"
+></sr-photo-editor>

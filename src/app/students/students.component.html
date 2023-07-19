@@ -1,1 +1,31 @@
-<p>students works!</p>
+<div class="flex flex-column h-full">
+  <section>
+    <div class="lg:px-8 md:px-6 px-4">
+      <div class="card">
+        <p-dataView [value]="students" [loading]="loading" emptyMessage="No student's found!">
+          <ng-template pTemplate="header">
+            <div class="flex flex-column col-12 md:flex-row md:justify-content-between">
+              <h2>{{ teacherName }}'s class</h2>
+            </div>
+          </ng-template>
+          <ng-template let-student pTemplate="listItem">
+            <div class="col-12">
+              <div class="student-details">
+                <p-avatar *ngIf="!student.avatar" icon="pi pi-user" size="large" shape="circle"></p-avatar>
+                <img *ngIf="student.avatar" [src]="student.avatar" />
+                <div class="student-name">
+                  {{ student.firstName }} {{ student.lastName }}
+                </div>
+                <div>
+                  <button pButton pRipple type="button" class="p-button-raised p-button-rounded" label="Student Info" (click)="openStudentInfo(student)">
+                    <fa-icon [icon]="faBookReader" style="margin-right: 10px;"></fa-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-dataView>
+      </div>
+    </div>
+  </section>
+</div>

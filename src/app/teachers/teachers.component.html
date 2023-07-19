@@ -1,1 +1,78 @@
-<p>teachers works!</p>
+<div class="flex flex-column h-full">
+  <section>
+    <h1 class="my-3 text-center">Our Teachers</h1>
+    <div class="lg:px-8 md:px-6 px-4">
+      <div class="card">
+        <p-dataView [value]="teachers" [loading]="loading" emptyMessage="No teacher's found!">
+          <ng-template let-teacher pTemplate="listItem">
+            <div class="col-12">
+              <div class="teacher-details">
+                <p-avatar
+                  *ngIf="!teacher.avatar"
+                  icon="pi pi-user"
+                  size="large"
+                  shape="circle"
+                ></p-avatar>
+                <img
+                  *ngIf="teacher.avatar"
+                  [src]="teacher.avatar"
+                />
+                <div>
+                  <div class="teacher-name">
+                    {{ teacher.title }} {{ teacher.firstName }}
+                    {{ teacher.lastName }}
+                  </div>
+                  <div class="teacher-grade">
+                    <span>Grade: </span> {{ teacher.gradeId }}
+                  </div>
+                  <div>
+                    <span>Class Size: </span> {{ teacher.students.length }} of
+                    {{ teacher.classSize }}
+                  </div>
+                </div>
+                <div>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    class="p-button-raised p-button-rounded"
+                    label="Teacher Info"
+                    (click)="openTeacherInfo(teacher)"
+                  >
+                    <fa-icon
+                      [icon]="faChalkboardTeacher"
+                      style="margin-right: 10px"
+                    ></fa-icon>
+                  </button>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    class="p-button-raised p-button-rounded"
+                    label="Students"
+                    [routerLink]="['/students', teacher.teacherId]"
+                  >
+                    <fa-icon
+                      [icon]="faBookReader"
+                      style="margin-right: 10px"
+                    ></fa-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-dataView>
+      </div>
+    </div>
+  </section>
+  <section class="flex justify-content-center gap-4 mb-4">
+    <button pButton pRipple class="p-button-raised p-button-rounded" [routerLink]="['/teacher']">
+      <fa-icon [icon]="faChalkboardTeacher" class="mx-2"></fa-icon>
+      Add Teacher
+    </button>
+    <button pButton pRipple class="p-button-raised p-button-rounded" [routerLink]="['/student']">
+      <fa-icon [icon]="faBookReader" class="mx-2"></fa-icon>
+      Register Student
+    </button>
+  </section>
+</div>

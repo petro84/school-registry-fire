@@ -1,0 +1,3 @@
+::ng-deep .p-divider.p-divider-horizontal:before {
+  border-top-color: var(--surface-700) !important;
+}

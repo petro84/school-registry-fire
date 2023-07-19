@@ -1,0 +1,50 @@
+.card {
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+}
+
+::ng-deep .p-dataview .p-dataview-content {
+  background-color: transparent;
+}
+
+::ng-deep .p-dataview.p-dataview-list .p-dataview-content > .p-grid > div {
+  border-color: var(--surface-700);
+}
+
+.teacher-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.teacher-grade {
+  margin-bottom: 0.5rem;
+}
+
+.teacher-details {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
+}
+
+.teacher-details > img {
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  margin-right: 2rem;
+}
+
+.teacher-details > div {
+  flex: 1 1 0;
+}
+
+.teacher-details > div:last-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.teacher-details > div:last-child > button {
+  align-self: flex-end;
+  margin-bottom: 5px;
+}
