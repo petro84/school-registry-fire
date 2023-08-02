@@ -11,14 +11,14 @@ fs.access(dir, fs.constants.F_OK, (err) => {
   if (err) {
     console.log('src does not exist, creating now...', process.cwd());
 
-    fs.mkdir(path.resolve(path.join(__dirname, dir)), {recursive: true}, (err) => {
+    fs.mkdir(path.resolve(path.join(process.cwd(), dir)), {recursive: true}, (err) => {
       if (err) throw err;
     });
   }
 
   try {
-    fs.writeFileSync(path.resolve(path.join(__dirname, dir, file)), content);
-    fs.writeFileSync(path.resolve(path.join(__dirname, dir, prodFile)), content);
+    fs.writeFileSync(path.resolve(path.join(process.cwd(), dir, file)), content);
+    fs.writeFileSync(path.resolve(path.join(process.cwd(), dir, prodFile)), content);
     console.log('Created successfully in', process.cwd());
     if (fs.existsSync(dir + '/' + file)) {
       console.log('File is created', path.resolve(dir + '/' + file));
