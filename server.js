@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const dir = 'src/environments';
+const dir = '/src/environments';
 const file = 'environment.ts';
 const prodFile = 'environment.prod.ts'
 
@@ -11,7 +11,7 @@ fs.access(dir, fs.constants.F_OK, (err) => {
   if (err) {
     console.log('src does not exist, creating now...', process.cwd());
 
-    fs.mkdir(dir, {recursive: true}, (err) => {
+    fs.mkdir(__dirname + dir, {recursive: true}, (err) => {
       if (err) throw err;
     });
   }
