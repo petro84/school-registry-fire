@@ -17,8 +17,10 @@ fs.access(dir, fs.constants.F_OK, (err) => {
   }
 
   try {
-    fs.writeFile(path.resolve(path.join(process.cwd(), dir, file)), content);
-    fs.writeFile(path.resolve(path.join(process.cwd(), dir, prodFile)), content);
+    fs.writeFile(path.resolve(path.join(process.cwd(), dir, file)), content, (err) => {
+      console.log(err);
+    });
+    fs.writeFile(path.resolve(path.join(process.cwd(), dir, prodFile)), content, (err) => console.log(err));
     console.log('Created successfully in', process.cwd());
     if (fs.existsSync(dir + '/' + file)) {
       console.log('File is created', path.resolve(dir + '/' + file));
