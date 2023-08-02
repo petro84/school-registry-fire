@@ -1,67 +1,44 @@
-<div class="flex flex-column h-full">
-  <section>
-    <h1 class="my-3 text-center">Our Teachers</h1>
-    <div class="lg:px-8 md:px-6 px-4">
+<div class="flex flex-column">
+  <h1 class="my-3 text-center">Our Teachers</h1>
+  <section class="flex justify-content-center">
+    <div class="w-6">
       <div class="card">
-        <p-dataView [value]="teachers" [loading]="loading" emptyMessage="No teacher's found!">
-          <ng-template let-teacher pTemplate="listItem">
-            <div class="col-12">
-              <div class="teacher-details">
-                <p-avatar
-                  *ngIf="!teacher.avatar"
-                  icon="pi pi-user"
-                  size="large"
-                  shape="circle"
-                ></p-avatar>
-                <img
-                  *ngIf="teacher.avatar"
-                  [src]="teacher.avatar"
-                />
-                <div>
-                  <div class="teacher-name">
-                    {{ teacher.title }} {{ teacher.firstName }}
-                    {{ teacher.lastName }}
-                  </div>
-                  <div class="teacher-grade">
-                    <span>Grade: </span> {{ teacher.gradeId }}
-                  </div>
-                  <div>
-                    <span>Class Size: </span> {{ teacher.students.length }} of
-                    {{ teacher.classSize }}
-                  </div>
+        <p-virtualScroller [value]="teachers" scrollHeight="400px" [itemSize]="130">
+          <ng-template pTemplate="header"></ng-template>
+          <ng-template pTemplate="item" let-teacher>
+            <div class="teacher-details">
+              <div class="avatar">
+                <p-avatar *ngIf="!teacher.avatar" icon="pi pi-user" size="large" shape="circle"></p-avatar>
+                <img *ngIf="teacher.avatar" [src]="teacher.avatar" />
+              </div>
+              <div class="teacher-info">
+                <div class="teacher-name">
+                  {{ teacher.title }} {{ teacher.firstName }} {{ teacher.lastName }}
                 </div>
-                <div>
-                  <button
-                    pButton
-                    pRipple
-                    type="button"
-                    class="p-button-raised p-button-rounded"
-                    label="Teacher Info"
-                    (click)="openTeacherInfo(teacher)"
-                  >
-                    <fa-icon
+                <div class="teacher-grade">
+                  Grade: {{ teacher.gradeId }}
+                </div>
+                <div class="class-size">
+                  # of students: {{ teacher.students.length }} of {{ teacher.classSize }}
+                </div>
+              </div>
+              <div>
+                <button pButton pRipple type="button" class="p-button-raised p-button-rounded" label="Teacher Info" (click)="openTeacherInfo(teacher)">
+                  <fa-icon
                       [icon]="faChalkboardTeacher"
                       style="margin-right: 10px"
                     ></fa-icon>
-                  </button>
-                  <button
-                    pButton
-                    pRipple
-                    type="button"
-                    class="p-button-raised p-button-rounded"
-                    label="Students"
-                    [routerLink]="['/students', teacher.teacherId]"
-                  >
-                    <fa-icon
+                </button>
+                <button pButton pRipple type="button" class="p-button-raised p-button-rounded ml-5" label="Student Info" [routerLink]="['/students', teacher.teacherId]">
+                  <fa-icon
                       [icon]="faBookReader"
                       style="margin-right: 10px"
                     ></fa-icon>
-                  </button>
-                </div>
+                </button>
               </div>
             </div>
           </ng-template>
-        </p-dataView>
+        </p-virtualScroller>
       </div>
     </div>
   </section>

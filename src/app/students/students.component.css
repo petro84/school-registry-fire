@@ -1,25 +1,12 @@
 .card {
+  background: var(--surface-ground);
   padding: 2rem;
   border-radius: 10px;
   margin-bottom: 2rem;
 }
 
-::ng-deep .p-dataview .p-dataview-header {
-  background-color: transparent;
-  border-color: var(--surface-700);
-  border-top: none;
-}
-::ng-deep .p-dataview .p-dataview-content {
-  background-color: transparent;
-}
-
-::ng-deep .p-dataview.p-dataview-list .p-dataview-content > .p-grid > div {
-  border-color: var(--surface-700);
-}
-
-.student-name {
-  font-size: 1.5rem;
-  font-weight: 700;
+::ng-deep .p-virtualscroller .p-virtualscroller-content {
+  background: transparent;
 }
 
 .student-details {
@@ -27,24 +14,23 @@
   align-items: center;
   padding: 1rem;
   width: 100%;
+  flex-wrap: nowrap;
 }
 
-.student-details > img {
+.avatar > img {
   border-radius: 100%;
   width: 100px;
   height: 100px;
   margin-right: 2rem;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.17);
 }
 
-.student-details > div {
+.student-name {
   flex: 1 1 0;
 }
 
-.student-details > div:last-child {
+.student-info {
   display: flex;
   flex-direction: column;
-}
-
-.student-details > div:last-child > button {
-  align-self: flex-end;
+  align-items: flex-end;
 }

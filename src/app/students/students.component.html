@@ -1,31 +1,69 @@
-<div class="flex flex-column h-full">
-  <section>
-    <div class="lg:px-8 md:px-6 px-4">
+<div class="flex flex-column">
+  <section class="flex justify-content-center">
+    <div class="w-6">
       <div class="card">
-        <p-dataView [value]="students" [loading]="loading" emptyMessage="No student's found!">
+        <p-virtualScroller
+          [value]="students"
+          scrollHeight="400px"
+          [itemSize]="130"
+        >
           <ng-template pTemplate="header">
-            <div class="flex flex-column col-12 md:flex-row md:justify-content-between">
-              <h2>{{ teacherName }}'s class</h2>
-            </div>
+            {{ teacherName }}'s class
           </ng-template>
-          <ng-template let-student pTemplate="listItem">
-            <div class="col-12">
-              <div class="student-details">
-                <p-avatar *ngIf="!student.avatar" icon="pi pi-user" size="large" shape="circle"></p-avatar>
+          <ng-template pTemplate="item" let-student>
+            <div class="student-details">
+              <div class="avatar">
+                <p-avatar
+                  *ngIf="!student.avatar"
+                  icon="pi pi-user"
+                  size="large"
+                  shape="circle"
+                ></p-avatar>
                 <img *ngIf="student.avatar" [src]="student.avatar" />
-                <div class="student-name">
-                  {{ student.firstName }} {{ student.lastName }}
-                </div>
-                <div>
-                  <button pButton pRipple type="button" class="p-button-raised p-button-rounded" label="Student Info" (click)="openStudentInfo(student)">
-                    <fa-icon [icon]="faBookReader" style="margin-right: 10px;"></fa-icon>
-                  </button>
-                </div>
+              </div>
+              <div class="student-name">
+                {{ student.firstName }} {{ student.lastName }}
+              </div>
+              <div class="student-info">
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  class="p-button-raised p-button-rounded"
+                  label="Student Info"
+                  (click)="openStudentInfo(student)"
+                >
+                  <fa-icon
+                    [icon]="faBookReader"
+                    style="margin-right: 10px"
+                  ></fa-icon>
+                </button>
               </div>
             </div>
           </ng-template>
-        </p-dataView>
+        </p-virtualScroller>
       </div>
     </div>
+  </section>
+  <section class="flex justify-content-center gap-4 mb-4">
+    <button
+      pButton
+      pRipple
+      type="button"
+      class="p-button-raised p-button-rounded"
+      (click)="registerStudent()"
+    >
+      <fa-icon [icon]="faBookReader" class="mx-2"></fa-icon>
+      Register Student
+    </button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      class="p-button-raised p-button-rounded ml-5"
+      icon="pi pi-home"
+      label="Home"
+      (click)="home()"
+    ></button>
   </section>
 </div>

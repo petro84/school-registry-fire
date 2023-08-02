@@ -20,6 +20,7 @@ const routes: Routes = [
     resolve: { student: StudentResolver },
   },
   { path: 'students/:id', component: StudentsComponent },
+  { path: 'student', component: StudentComponent },
   { path: '**', component: HomeComponent },
 ];
 

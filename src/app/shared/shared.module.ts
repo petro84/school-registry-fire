@@ -12,7 +12,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { ButtonModule } from 'primeng/button';
-import { DataViewModule } from 'primeng/dataview';
 import { AvatarModule } from 'primeng/avatar';
 import { DividerModule } from 'primeng/divider';
 import { DropdownModule } from 'primeng/dropdown';
@@ -20,6 +19,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DialogModule } from 'primeng/dialog';
+import { VirtualScrollerModule } from 'primeng/virtualscroller';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,6 @@ import { DialogModule } from 'primeng/dialog';
     FontAwesomeModule,
     ImageCropperModule,
     ButtonModule,
-    DataViewModule,
     AvatarModule,
     DividerModule,
     DropdownModule,
@@ -44,6 +43,7 @@ import { DialogModule } from 'primeng/dialog';
     InputNumberModule,
     InputMaskModule,
     DialogModule,
+    VirtualScrollerModule,
   ],
   exports: [
     HeaderComponent,
@@ -52,8 +52,8 @@ import { DialogModule } from 'primeng/dialog';
     ReactiveFormsModule,
     FontAwesomeModule,
     ButtonModule,
-    DataViewModule,
     AvatarModule,
+    VirtualScrollerModule
   ]
 })
 export class SharedModule { }
