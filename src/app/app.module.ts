@@ -17,6 +17,8 @@ import { TeachersComponent } from './teachers/teachers.component';
 import { TeacherComponent } from './teachers/teacher/teacher.component';
 import { StudentComponent } from './students/student/student.component';
 
+import { AdminService } from './services/admin.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +37,9 @@ import { StudentComponent } from './students/student/student.component';
     AngularFireAuthModule,
     SharedModule
   ],
-  providers: [],
+  providers: [
+    AdminService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

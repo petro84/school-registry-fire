@@ -1,0 +1,35 @@
+<p-dialog
+  header="Admin Login"
+  [(visible)]="showLoginDialog"
+  (onHide)="close()"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <form [formGroup]="form" (ngSubmit)="verifyCredentials(form.value)">
+    <div class="px-6 mt-2">
+      <input type="email" placeholder="Email" class="p-inputtext p-component input w-full mb-4" formControlName="email" />
+      <input type="password" placeholder="Password" class="p-inputtext p-component input w-full" formControlName="password" />
+    </div>
+    <div class="flex justify-content-center my-4">
+      <button
+        pButton
+        pRipple
+        type="submit"
+        label="Login"
+        icon="pi pi-check"
+        class="mx-4"
+        [disabled]="form.invalid"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Cancel"
+        icon="pi pi-times"
+        class="p-button-secondary mx-4"
+        (click)="close()"
+      ></button>
+    </div>
+  </form>
+</p-dialog>

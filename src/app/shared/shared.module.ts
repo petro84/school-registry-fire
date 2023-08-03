@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AdminComponent } from './admin/admin.component';
 import { HeaderComponent } from './header/header.component';
 import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 import { TeacherStudentFormComponent } from './teacher-student-form/teacher-student-form.component';
+import { LoginComponent } from './admin/login/login.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -20,13 +20,15 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DialogModule } from 'primeng/dialog';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
+import { RegisterComponent } from './admin/register/register.component';
 
 @NgModule({
   declarations: [
-    AdminComponent,
     HeaderComponent,
     PhotoEditorComponent,
-    TeacherStudentFormComponent
+    TeacherStudentFormComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,

@@ -20,6 +20,7 @@ import { Student } from '../../models/student.model';
 import { GradesService } from '../../services/grades.service';
 import { TeachersService } from '../../services/teachers.service';
 import { StudentsService } from '../../services/students.service';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'sr-teacher-student-form',
@@ -37,6 +38,7 @@ export class TeacherStudentFormComponent implements OnInit {
   windowWidth!: number;
   currentGrade!: Grade;
   displayEditor = false;
+  loggedInUser: any;
 
   titles: string[] = ['Mr.', 'Mrs.', 'Ms.', 'Miss'];
 
@@ -49,9 +51,12 @@ export class TeacherStudentFormComponent implements OnInit {
     private fb: FormBuilder,
     private gradesSvc: GradesService,
     private teachersSvc: TeachersService,
-    private studentsSvc: StudentsService
+    private studentsSvc: StudentsService,
+    private adminSvc: AdminService
   ) {
     this.gradesSvc.fetchGrades().subscribe((grades) => (this.grades = grades));
+
+    this.adminSvc.currentUser.subscribe(user => this.loggedInUser = user);
   }
 
   ngOnInit(): void {
@@ -138,7 +143,11 @@ export class TeacherStudentFormComponent implements OnInit {
       avatar: student.avatar
     });
 
-    this.form.controls['grade'].enable();
+    if (!this.loggedInUser) {
+      this.form.controls['grade'].disable();
+    } else {
+      this.form.controls['grade'].enable();
+    }
   }
 
   resetTeacher(event: any) {

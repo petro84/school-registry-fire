@@ -23,8 +23,8 @@ fs.access(dir, fs.constants.F_OK, (err) => {
     fs.writeFile(path.resolve(path.join(process.cwd(), dir, prodFile)), content, (err) => console.log(err));
     console.log('Created successfully in', process.cwd());
     if (fs.existsSync(dir + '/' + file)) {
-      console.log('File is created', path.resolve(dir + '/' + file));
-      const str = fs.readFileSync(dir + '/' + file).toString();
+      console.log('File is created', path.resolve(path.join(process.cwd(), dir, file)));
+      const str = fs.readFileSync(path.resolve(path.join(process.cwd(), dir, file))).toString();
       console.log(str);
     }
   } catch (error) {

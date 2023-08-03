@@ -3,37 +3,60 @@
   <section class="flex justify-content-center">
     <div class="w-6">
       <div class="card">
-        <p-virtualScroller [value]="teachers" scrollHeight="400px" [itemSize]="130">
+        <p-virtualScroller
+          [value]="teachers"
+          scrollHeight="400px"
+          [itemSize]="130"
+        >
           <ng-template pTemplate="header"></ng-template>
           <ng-template pTemplate="item" let-teacher>
             <div class="teacher-details">
               <div class="avatar">
-                <p-avatar *ngIf="!teacher.avatar" icon="pi pi-user" size="large" shape="circle"></p-avatar>
+                <p-avatar
+                  *ngIf="!teacher.avatar"
+                  icon="pi pi-user"
+                  size="large"
+                  shape="circle"
+                ></p-avatar>
                 <img *ngIf="teacher.avatar" [src]="teacher.avatar" />
               </div>
               <div class="teacher-info">
                 <div class="teacher-name">
-                  {{ teacher.title }} {{ teacher.firstName }} {{ teacher.lastName }}
+                  {{ teacher.title }} {{ teacher.firstName }}
+                  {{ teacher.lastName }}
                 </div>
-                <div class="teacher-grade">
-                  Grade: {{ teacher.gradeId }}
-                </div>
+                <div class="teacher-grade">Grade: {{ teacher.gradeId }}</div>
                 <div class="class-size">
-                  # of students: {{ teacher.students.length }} of {{ teacher.classSize }}
+                  # of students: {{ teacher.students.length }} of
+                  {{ teacher.classSize }}
                 </div>
               </div>
               <div>
-                <button pButton pRipple type="button" class="p-button-raised p-button-rounded" label="Teacher Info" (click)="openTeacherInfo(teacher)">
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  class="p-button-raised p-button-rounded"
+                  label="Teacher Info"
+                  (click)="openTeacherInfo(teacher)"
+                >
                   <fa-icon
-                      [icon]="faChalkboardTeacher"
-                      style="margin-right: 10px"
-                    ></fa-icon>
+                    [icon]="faChalkboardTeacher"
+                    style="margin-right: 10px"
+                  ></fa-icon>
                 </button>
-                <button pButton pRipple type="button" class="p-button-raised p-button-rounded ml-5" label="Student Info" [routerLink]="['/students', teacher.teacherId]">
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  class="p-button-raised p-button-rounded ml-5"
+                  label="Students"
+                  [routerLink]="['/students', teacher.teacherId]"
+                >
                   <fa-icon
-                      [icon]="faBookReader"
-                      style="margin-right: 10px"
-                    ></fa-icon>
+                    [icon]="faBookReader"
+                    style="margin-right: 10px"
+                  ></fa-icon>
                 </button>
               </div>
             </div>
@@ -43,11 +66,22 @@
     </div>
   </section>
   <section class="flex justify-content-center gap-4 mb-4">
-    <button pButton pRipple class="p-button-raised p-button-rounded" [routerLink]="['/teacher']">
+    <button
+      pButton
+      pRipple
+      *ngIf="loggedInUser"
+      class="p-button-raised p-button-rounded"
+      [routerLink]="['/teacher']"
+    >
       <fa-icon [icon]="faChalkboardTeacher" class="mx-2"></fa-icon>
       Add Teacher
     </button>
-    <button pButton pRipple class="p-button-raised p-button-rounded" [routerLink]="['/student']">
+    <button
+      pButton
+      pRipple
+      class="p-button-raised p-button-rounded"
+      [routerLink]="['/student']"
+    >
       <fa-icon [icon]="faBookReader" class="mx-2"></fa-icon>
       Register Student
     </button>

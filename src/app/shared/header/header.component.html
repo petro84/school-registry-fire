@@ -33,5 +33,44 @@
         </a>
       </li>
     </ul>
+    <div
+      class="p-0 m-0 flex flex-column lg:flex-row lg:align-self-center border-top-1 surface-border lg:border-top-none"
+    >
+      <button
+        pButton
+        pRipple
+        *ngIf="!loggedInUser; else loggedIn"
+        type="button"
+        icon="pi pi-lock"
+        class="p-button-rounded p-button-outlined"
+        (click)="showDialog('login')"
+      ></button>
+    </div>
   </div>
 </div>
+<sr-login
+  [showLoginDialog]="showLoginDialog"
+  (closeDialog)="close('login')"
+></sr-login>
+<sr-register
+  [showRegisterDialog]="showRegisterDialog"
+  (closeDialog)="close('register')"
+></sr-register>
+<ng-template #loggedIn>
+  <button
+    pButton
+    pRipple
+    type="button"
+    icon="pi pi-user-plus"
+    class="p-button-rounded p-button-outlined mr-4"
+    (click)="showDialog('register')"
+  ></button>
+  <button
+    pButton
+    pRipple
+    type="button"
+    icon="pi pi-lock-open"
+    class="p-button-rounded p-button-outlined"
+    (click)="logout()"
+  ></button>
+</ng-template>

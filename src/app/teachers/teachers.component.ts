@@ -6,6 +6,7 @@ import {
   faChalkboardTeacher,
 } from '@fortawesome/free-solid-svg-icons';
 
+import { AdminService } from '../services/admin.service';
 import { TeachersService } from '../services/teachers.service';
 import { Teacher } from '../models/teacher.model';
 
@@ -16,16 +17,19 @@ import { Teacher } from '../models/teacher.model';
 })
 export class TeachersComponent implements OnInit {
   teachers: Teacher[] = [];
-  loading = true;
+  loggedInUser: any;
 
   faBookReader = faBookReader;
   faChalkboardTeacher = faChalkboardTeacher;
 
   constructor(
     private teachersSvc: TeachersService,
+    private adminSvc: AdminService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.adminSvc.currentUser.subscribe(user => this.loggedInUser = user);
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((pm) => {
@@ -35,18 +39,15 @@ export class TeachersComponent implements OnInit {
       if (grade) {
         this.teachersSvc.getTeachersByGrade(grade).subscribe((teachers) => {
           this.teachers = teachers;
-          this.loading = false;
         });
       } else if (id) {
         this.teachersSvc.getTeacherById(id).subscribe((teachers) => {
           const teacher = <Teacher>{ ...teachers };
           this.teachers = [teacher];
-          this.loading = false;
         });
       } else {
         this.teachersSvc.getAllTeachers().subscribe((teachers) => {
           this.teachers = teachers;
-          this.loading = false;
         });
       }
     });

@@ -1,0 +1,63 @@
+<p-dialog
+  header="Register"
+  [(visible)]="showRegisterDialog"
+  (onHide)="close()"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <form [formGroup]="form" (ngSubmit)="createAccount(form.value)">
+    <div class="px-6 mt-2">
+      <input
+        type="text"
+        placeholder="First Name"
+        class="p-inputtext p-component input w-full mb-4"
+        formControlName="firstName"
+      />
+      <input
+        type="text"
+        placeholder="Last Name"
+        class="p-inputtext p-component input w-full mb-4"
+        formControlName="lastName"
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        class="p-inputtext p-component input w-full mb-4"
+        formControlName="email"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        class="p-inputtext p-component input w-full mb-4"
+        formControlName="password"
+      />
+      <input
+        type="password"
+        placeholder="Confirm Password"
+        class="p-inputtext p-component input w-full mb-4"
+        formControlName="confirmPassword"
+      />
+    </div>
+    <div class="flex justify-content-center my-4">
+      <button
+        pButton
+        pRipple
+        type="submit"
+        label="Create"
+        class="mx-4"
+        icon="pi pi-check"
+        [disabled]="form.invalid"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Cancel"
+        class="p-button-secondary mx-4"
+        icon="pi pi-times"
+        (click)="close()"
+      ></button>
+    </div>
+  </form>
+</p-dialog>
