@@ -5,10 +5,14 @@
       <div class="card">
         <p-virtualScroller
           [value]="teachers"
-          scrollHeight="400px"
+          scrollHeight="300px"
           [itemSize]="130"
         >
-          <ng-template pTemplate="header"></ng-template>
+          <ng-template pTemplate="header">
+            <div class="flex align-items-center justify-content-center gap-3 flex-wrap">
+              <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [style]="{'min-width': '10em'}"></p-dropdown>
+            </div>
+          </ng-template>
           <ng-template pTemplate="item" let-teacher>
             <div class="teacher-details">
               <div class="avatar">

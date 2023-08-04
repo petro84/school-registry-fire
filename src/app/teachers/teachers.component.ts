@@ -9,6 +9,7 @@ import {
 import { AdminService } from '../services/admin.service';
 import { TeachersService } from '../services/teachers.service';
 import { Teacher } from '../models/teacher.model';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'sr-teachers',
@@ -18,6 +19,8 @@ import { Teacher } from '../models/teacher.model';
 export class TeachersComponent implements OnInit {
   teachers: Teacher[] = [];
   loggedInUser: any;
+  sortOptions: SelectItem[];
+  sortKey: string;
 
   faBookReader = faBookReader;
   faChalkboardTeacher = faChalkboardTeacher;
@@ -51,6 +54,13 @@ export class TeachersComponent implements OnInit {
         });
       }
     });
+
+    this.sortOptions = [
+      {label: 'Grade - Asc', value: 'grade'},
+      {label: 'Grade - Desc', value: '!grade'},
+      {label: 'Name - Asc', value: '!name'},
+      {label: 'Name - Desc', value: 'name'}
+    ];
   }
 
   openTeacherInfo(teacher: Teacher) {
@@ -63,5 +73,38 @@ export class TeachersComponent implements OnInit {
     } else {
       console.log('Teacher could not be found.');
     }
+  }
+
+  onSortChange() {
+    if (this.sortKey.includes('grade')) {
+      this.sort('grade', this.sortKey.indexOf('!') === 0 ? -1 : 1);
+    } else {
+      this.sort('name', this.sortKey.indexOf('!') ? -1 : 1);
+    }
+  }
+
+  sort(field: string, order: number) {
+    let teachers = [...this.teachers];
+
+    if (field === 'grade') {
+      teachers.sort((teach1, teach2) => {
+        let t1 = teach1.gradeId;
+        let t2 = teach2.gradeId;
+        let result = (t1 < t2) ? -1 : (t1 > t2) ? 1 : 0;
+
+        return (order * result);
+      });
+    } else {
+      teachers.sort((teach1, teach2) => {
+        let t1 = teach1.firstName + ' ' + teach1.lastName;
+        let t2 = teach2.firstName + ' ' + teach2.lastName;
+        let result = (t1 < t2) ? -1 : (t1 > t2) ? 1 : 0;
+
+        return (order * result);
+      });
+    }
+
+    this.teachers = teachers;
+
   }
 }

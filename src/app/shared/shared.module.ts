@@ -55,7 +55,8 @@ import { RegisterComponent } from './admin/register/register.component';
     FontAwesomeModule,
     ButtonModule,
     AvatarModule,
-    VirtualScrollerModule
+    VirtualScrollerModule,
+    DropdownModule
   ]
 })
 export class SharedModule { }
