@@ -1,5 +1,5 @@
 <div
-  class="border-round px-6 shadow-2 flex justify-content-between relative lg:static"
+  class="border-round px-6 surface-ground shadow-2 flex justify-content-between relative lg:static"
   style="min-height: 84px"
 >
   <div class="flex mr-0 align-self-center">
@@ -42,7 +42,7 @@
         *ngIf="!loggedInUser; else loggedIn"
         type="button"
         icon="pi pi-lock"
-        class="p-button-rounded p-button-outlined"
+        class="p-button-rounded"
         (click)="showDialog('login')"
       ></button>
     </div>
@@ -62,7 +62,7 @@
     pRipple
     type="button"
     icon="pi pi-user-plus"
-    class="p-button-rounded p-button-outlined mr-4"
+    class="p-button-rounded mr-4"
     (click)="showDialog('register')"
   ></button>
   <button
@@ -70,7 +70,7 @@
     pRipple
     type="button"
     icon="pi pi-lock-open"
-    class="p-button-rounded p-button-outlined"
+    class="p-button-rounded"
     (click)="logout()"
   ></button>
 </ng-template>

@@ -42,9 +42,17 @@
                 [options]="titles"
                 placeholder="Select"
                 formControlName="title"
+                [ngClass]="{
+                  'ng-dirty ng-invalid':
+                    !form.controls['title'].valid &&
+                    form.controls['title'].touched
+                }"
               ></p-dropdown>
             </div>
-            <div class="field col-12 md:col-4" [ngClass]="{ 'md:col-5 md:col-offset-1': formType === 'student' }">
+            <div
+              class="field col-12 md:col-4"
+              [ngClass]="{ 'md:col-5 md:col-offset-1': formType === 'student' }"
+            >
               <label for="firstName" class="block font-medium text-900"
                 >First Name</label
               >
@@ -53,10 +61,18 @@
                 formControlName="firstName"
                 class="p-inputtext p-comment w-full"
                 [value]="form.controls['firstName'].value | titlecase"
+                [ngClass]="{
+                  'ng-dirty ng-invalid':
+                    !form.controls['firstName'].valid &&
+                    form.controls['firstName'].touched
+                }"
                 type="text"
               />
             </div>
-            <div class="field col-12 md:col-4" [ngClass]="{ 'md:col-5': formType === 'student' }">
+            <div
+              class="field col-12 md:col-4"
+              [ngClass]="{ 'md:col-5': formType === 'student' }"
+            >
               <label for="lastName" class="block font-medium text-900"
                 >Last Name</label
               >
@@ -65,12 +81,20 @@
                 formControlName="lastName"
                 class="p-inputtext p-comment w-full"
                 [value]="form.controls['lastName'].value | titlecase"
+                [ngClass]="{
+                  'ng-dirty ng-invalid':
+                    !form.controls['lastName'].valid &&
+                    form.controls['lastName'].touched
+                }"
                 type="text"
               />
             </div>
             <div
               class="field col-12"
-              [ngClass]="{ 'md:col-4 md:col-offset-3': formType === 'teacher', 'md:col-5 md:col-offset-1': formType === 'student' }"
+              [ngClass]="{
+                'md:col-4 md:col-offset-3': formType === 'teacher',
+                'md:col-5 md:col-offset-1': formType === 'student'
+              }"
             >
               <label for="grade" class="block font-medium text-900"
                 >Grade</label
@@ -82,6 +106,11 @@
                 optionLabel="description"
                 optionValue="gradeId"
                 [style]="{ width: '100%' }"
+                [ngClass]="{
+                  'ng-dirty ng-invalid':
+                    !form.controls['grade'].valid &&
+                    form.controls['grade'].touched
+                }"
               ></p-dropdown>
             </div>
             <div class="field col-12 md:col-4" *ngIf="formType === 'teacher'">
@@ -92,15 +121,42 @@
                 formControlName="classSize"
                 mode="decimal"
                 [showButtons]="true"
+                [ngClass]="{'ng-dirty ng-invalid': !form.controls['classSize'].valid && form.controls['classSize'].touched}"
               ></p-inputNumber>
+              <small
+                *ngIf="form.controls['classSize'].touched && form.controls['classSize'].hasError('min')"
+                class="p-error block ml-3"
+                >Value must be > 0</small
+              >
+              <small
+                *ngIf="form.controls['classSize'].hasError('max')"
+                class="p-error block ml-3"
+                >Value must be <= 20</small
+              >
             </div>
             <div class="field col-12 md:col-5" *ngIf="formType === 'student'">
-              <label for="teacher" class="block font-medium text-900">Teacher</label>
-              <input pInputText formControlName="teacher" placeholder="Teacher" type="text" class="p-inputtext p-component" [readOnly]="true">
+              <label for="teacher" class="block font-medium text-900"
+                >Teacher</label
+              >
+              <input
+                pInputText
+                formControlName="teacher"
+                placeholder="Teacher"
+                type="text"
+                class="p-inputtext p-component"
+                [ngClass]="{
+                  'ng-dirty ng-invalid':
+                    !form.controls['teacher'].valid &&
+                    form.controls['teacher'].touched
+                }"
+              />
             </div>
             <div
               class="field col-12"
-              [ngClass]="{ 'md:col-4 md:col-offset-3': formType === 'teacher', 'md:col-5 md:col-offset-1': formType === 'student' }"
+              [ngClass]="{
+                'md:col-4 md:col-offset-3': formType === 'teacher',
+                'md:col-5 md:col-offset-1': formType === 'student'
+              }"
             >
               <label for="phone" class="block font-medium text-900"
                 >Phone #</label
@@ -109,11 +165,19 @@
                 formControlName="phone"
                 mask="999-999-9999"
                 placeholder="999-999-9999"
+                [ngClass]="{
+                  'ng-dirty ng-invalid':
+                    !form.controls['phone'].valid &&
+                    form.controls['phone'].touched
+                }"
               ></p-inputMask>
             </div>
             <div
               class="field col-12"
-              [ngClass]="{ 'md:col-4': formType === 'teacher', 'md:col-5': formType === 'student' }"
+              [ngClass]="{
+                'md:col-4': formType === 'teacher',
+                'md:col-5': formType === 'student'
+              }"
             >
               <label for="email" class="block font-medium text-900"
                 >Email</label
@@ -123,6 +187,11 @@
                 type="email"
                 formControlName="email"
                 class="p-inputtext p-component"
+                [ngClass]="{
+                  'ng-dirty ng-invalid':
+                    !form.controls['email'].valid &&
+                    form.controls['email'].touched
+                }"
               />
             </div>
           </div>

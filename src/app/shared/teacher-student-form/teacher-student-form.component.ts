@@ -116,6 +116,12 @@ export class TeacherStudentFormComponent implements OnInit {
   setupStudent() {
     this.form.addControl('teacher', new FormControl(null));
 
+    if (this.loggedInUser) {
+      this.form.controls['teacher'].enable();
+    } else {
+      this.form.controls['teacher'].disable();
+    }
+
     forkJoin({
       student: this.studentsSvc.fetchStudent().pipe(take(1)),
       teacher: this.teachersSvc.getTeacher().pipe(take(1)),

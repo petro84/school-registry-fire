@@ -51,8 +51,8 @@ export class StudentsComponent implements OnInit {
     });
 
     this.sortOptions = [
-      { label: 'Name - Asc', value: 'name' },
-      { label: 'Name - Desc', value: '!name' },
+      { label: 'Name - Asc', value: '!name' },
+      { label: 'Name - Desc', value: 'name' },
     ];
   }
 

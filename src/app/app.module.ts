@@ -5,6 +5,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+
+import { MessageService } from 'primeng/api';
+import { AdminService } from './services/admin.service';
+
 import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,8 +20,6 @@ import { StudentsComponent } from './students/students.component';
 import { TeachersComponent } from './teachers/teachers.component';
 import { TeacherComponent } from './teachers/teacher/teacher.component';
 import { StudentComponent } from './students/student/student.component';
-
-import { AdminService } from './services/admin.service';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { AdminService } from './services/admin.service';
     SharedModule
   ],
   providers: [
+    MessageService,
     AdminService
   ],
   bootstrap: [AppComponent]

@@ -18,7 +18,9 @@ import { SelectItem } from 'primeng/api';
 })
 export class TeachersComponent implements OnInit {
   teachers: Teacher[] = [];
+  fileterdTeachrs!: Teacher[];
   loggedInUser: any;
+  searchText!: string;
   sortOptions: SelectItem[];
   sortKey: string;
 
@@ -73,6 +75,17 @@ export class TeachersComponent implements OnInit {
     } else {
       console.log('Teacher could not be found.');
     }
+  }
+
+  search(event: any) {
+    this.fileterdTeachrs = this.teachers.filter(text =>
+      text.firstName.toLocaleLowerCase().includes(event.query.toLocaleLowerCase()) ||
+      text.lastName.toLowerCase().includes(event.query.toLocaleLowerCase())
+    );
+  }
+
+  onSelect(value: any) {
+
   }
 
   onSortChange() {

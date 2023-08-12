@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AdminService } from '../../../services/admin.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'sr-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder, private adminSvc: AdminService) {}
+  constructor(private fb: FormBuilder, private adminSvc: AdminService, private msgSvc: MessageService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -27,10 +28,11 @@ export class LoginComponent implements OnInit {
     this.adminSvc
       .signIn(formValues['email'], formValues['password'])
       .then(() => this.close())
-      .catch((err) => console.error(err));
+      .catch((err) => this.msgSvc.add({ severity: 'error', summary: 'Invalid Credentials', detail: 'Username/Password incorrect' }));
   }
 
   close() {
+    this.msgSvc.clear();
     this.form.reset();
     this.closeDialog.emit();
   }

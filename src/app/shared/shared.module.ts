@@ -7,6 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 import { TeacherStudentFormComponent } from './teacher-student-form/teacher-student-form.component';
 import { LoginComponent } from './admin/login/login.component';
+import { RegisterComponent } from './admin/register/register.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -20,7 +21,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DialogModule } from 'primeng/dialog';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
-import { RegisterComponent } from './admin/register/register.component';
+import { AutoCompleteModule } from 'primeng/autocomplete'
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { RegisterComponent } from './admin/register/register.component';
     InputMaskModule,
     DialogModule,
     VirtualScrollerModule,
+    AutoCompleteModule,
+    ToastModule
   ],
   exports: [
     HeaderComponent,
@@ -56,7 +60,9 @@ import { RegisterComponent } from './admin/register/register.component';
     ButtonModule,
     AvatarModule,
     VirtualScrollerModule,
-    DropdownModule
+    DropdownModule,
+    AutoCompleteModule,
+    ToastModule
   ]
 })
 export class SharedModule { }

@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { concatMap } from 'rxjs';
 
-import { Student } from '../../models/student.model';
-import { Teacher } from '../../models/teacher.model';
+import { MessageService } from 'primeng/api';
+
 import { StudentsService } from '../../services/students.service';
 import { TeachersService } from '../../services/teachers.service';
+import { Student } from '../../models/student.model';
+import { Teacher } from '../../models/teacher.model';
 
 @Component({
   selector: 'sr-student',
@@ -21,7 +23,8 @@ export class StudentComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private studentsSvc: StudentsService,
-    private teachersSvc: TeachersService
+    private teachersSvc: TeachersService,
+    private msgSvc: MessageService
   ) {
     this.teachersSvc
       .getAllTeachers()
@@ -53,9 +56,9 @@ export class StudentComponent implements OnInit {
       this.teacherId = teacher.teacherId ? teacher.teacherId : '';
 
       this.studentsSvc.createStudent(this.teacherId, student).subscribe({
-        next: () => console.log('Success'),
-        error: err => console.error(err),
-        complete: () => setTimeout(() => this.closeForm(), 3000)
+        next: () => this.createToastMsg('success', 'Success', `${student.firstName} ${student.lastName} has been assigned to ${teacher.title} ${teacher.lastName}'s class`, false),
+        error: err => this.createToastMsg('error', err.code, err.message, true),
+        complete: () => {}
       });
     } else if (this.student && !formValues['teacher']) {
       let teacher = this.getRandomTeacherByGrade(formValues['grade']);
@@ -68,21 +71,30 @@ export class StudentComponent implements OnInit {
       );
 
       deletePreviousStudent.subscribe({
-        next: () => console.log('Success'),
-        error: err => console.error(err),
-        complete: () => setTimeout(() => this.closeForm(), 3000)
+        next: () => this.createToastMsg('success', 'Success', `${student.firstName} ${student.lastName} has been transfered to ${teacher.title} ${teacher.lastName}'s class`, false),
+        error: err => this.createToastMsg('error', err.code, err.message, true),
+        complete: () => {}
       });
     } else {
       let sId = this.student.studentId ? this.student.studentId : '';
       this.studentsSvc.updateStudent(this.teacherId, sId, student).subscribe({
-        next: () => console.log('Success'),
-        error: err => console.error(err),
-        complete: () => setTimeout(() => this.closeForm(), 3000)
+        next: () => this.createToastMsg('success', 'Success', `${student.firstName} ${student.lastName} has been updated!`, false),
+        error: err => this.createToastMsg('error', err.code, err.message, true),
+        complete: () => {}
       });
     }
   }
 
+  createToastMsg(severity: string, summary: string, detail: string, isError: boolean): void {
+    this.msgSvc.add({ severity, summary, detail });
+
+    if (!isError) {
+      setTimeout(() => this.closeForm(), 3000);
+    }
+  }
+
   closeForm() {
+    this.msgSvc.clear()
     this.studentsSvc.setStudent(null);
     if (this.teacherId) {
       this.router.navigate(['/students', this.teacherId]);
@@ -95,9 +107,9 @@ export class StudentComponent implements OnInit {
   delete() {
     if (this.teacherId && this.student?.studentId) {
       this.studentsSvc.deleteStudent(this.teacherId, this.student.studentId).subscribe({
-        next: () => console.log('Success'),
-        error: err => console.error(err),
-        complete: () => setTimeout(() => this.closeForm(), 3000)
+        next: () => this.createToastMsg('success', 'Success', `${this.student?.firstName} ${this.student?.lastName} has been removed`, false),
+        error: err => this.createToastMsg('error', err.code, err.message, true),
+        complete: () => {}
       });
     }
   }

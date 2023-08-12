@@ -4,9 +4,11 @@ import { AdminService } from '../../../services/admin.service';
 import {
   AbstractControl,
   FormBuilder,
+  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'sr-register',
@@ -19,34 +21,46 @@ export class RegisterComponent implements OnInit {
 
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder, private adminSvc: AdminService) {}
+  constructor(private fb: FormBuilder, private adminSvc: AdminService, private msgSvc: MessageService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group(
       {
         firstName: [null, Validators.required],
         lastName: [null, Validators.required],
-        email: [null, [Validators.required, Validators.email]],
+        email: [
+          null,
+          {
+            validators: [Validators.required, Validators.email],
+            updateOn: 'blur',
+          },
+        ],
         password: [
           null,
-          [
-            Validators.required,
-            Validators.pattern(
-              /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/
-            ),
-          ],
+          {
+            validators: [
+              Validators.required,
+              Validators.pattern(
+                /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/
+              ),
+            ],
+            updateOn: 'blur',
+          },
         ],
         confirmPassword: [
           null,
-          [
-            Validators.required,
-            Validators.pattern(
-              /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/
-            ),
-          ],
+          {
+            validators: [
+              Validators.required,
+              Validators.pattern(
+                /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/
+              ),
+            ],
+            updateOn: 'blur',
+          },
         ],
       },
-      { validator: this.MatchingPasswords('password', 'confirmPassword') }
+      { validator: this.MatchingPasswords }
     );
   }
 
@@ -56,27 +70,26 @@ export class RegisterComponent implements OnInit {
     this.adminSvc
       .signUp(formValues['email'], formValues['password'], displayName)
       .then(() => {
-        console.log('success');
+        this.msgSvc.add({
+          severity: 'sucess',
+          summary: 'Success',
+          detail: 'Account successfully created!'
+        })
         this.close();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => this.msgSvc.add({ severity: 'error', summary: err.code, detail: err.message}));
   }
 
   close() {
+    this.msgSvc.clear();
     this.form.reset();
     this.closeDialog.emit();
   }
 
-  MatchingPasswords(control: string, matchingControl: string) {
-    return (formGroup: FormGroup) => {
-      const ctrl = formGroup.controls[control];
-      const mctrl = formGroup.controls[matchingControl];
+  MatchingPasswords(c: AbstractControl) {
+    let pwd = c.get('password');
+    let cpwd = c.get('confirmPassword');
 
-      if (ctrl.value !== mctrl.value && mctrl.value !== '') {
-        mctrl.setErrors({ not_matching: true });
-      } else {
-        mctrl.setErrors(null);
-      }
-    };
+    return pwd.value === cpwd.value ? null : { not_matching: true };
   }
 }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Teacher } from '../../models/teacher.model';
+import { MessageService } from 'primeng/api';
+
 import { TeachersService } from '../../services/teachers.service';
+import { Teacher } from '../../models/teacher.model';
 
 @Component({
   selector: 'sr-teacher',
@@ -13,7 +15,7 @@ export class TeacherComponent implements OnInit {
   teacher!: Teacher | null;
   teacherId!: string;
 
-  constructor(private teachersSvc: TeachersService, private route: ActivatedRoute, private router: Router) {
+  constructor(private teachersSvc: TeachersService, private msgSvc: MessageService, private route: ActivatedRoute, private router: Router) {
     this.route.paramMap.subscribe(pm => {
       const id = pm.get('id');
 
@@ -48,15 +50,15 @@ export class TeacherComponent implements OnInit {
 
     if (!this.teacher) {
       this.teachersSvc.createTeacher(teach).subscribe({
-        next: () => console.log('Success!'),
-        error: (err) => console.error(err),
-        complete: () => { setTimeout(() => this.closeForm(), 3000) }
+        next: () => this.createToastMsg('success', 'Success', `${teach.title} ${teach.lastName} has been created!`, false),
+        error: (err) => this.createToastMsg('error', err.code, err.message, true),
+        complete: () => {}
       });
     } else {
       this.teachersSvc.updateTeacher(this.teacherId, teach).subscribe({
-        next: () => console.log('Success'),
-        error: (err) => console.error(err),
-        complete: () => { setTimeout(() => this.closeForm(), 3000) }
+        next: () => this.createToastMsg('success', 'Success', `${teach.title} ${teach.lastName} has been updated!`, false),
+        error: (err) => this.createToastMsg('error', err.code, err.message, true),
+        complete: () => {}
       });
     }
   }
@@ -64,14 +66,25 @@ export class TeacherComponent implements OnInit {
   delete() {
     if (this.teacher && this.teacherId && this.teacher.teacherId === this.teacherId) {
       this.teachersSvc.deleteTeacher(this.teacherId).subscribe({
-        next: () => console.log('Success'),
-        error: (err) => console.error(err),
-        complete: () => { setTimeout(() => this.closeForm(), 3000) }
+        next: () => this.createToastMsg('success', 'Success', `${this.teacher?.title} ${this.teacher?.lastName} has been removed!`, false),
+        error: (err) => this.createToastMsg('error', err.code, err.message, true),
+        complete: () => {}
       });
     }
   }
 
+  createToastMsg(severity: string, summary: string, detail: string, isError: boolean): void {
+    this.msgSvc.add({ severity, summary, detail });
+
+    if (!isError) {
+      setTimeout(() => {
+        this.closeForm();
+      }, 3000);
+    }
+  }
+
   closeForm() {
+    this.msgSvc.clear();
     this.teachersSvc.setTeacher(null);
     this.router.navigate(['/teachers']);
   }

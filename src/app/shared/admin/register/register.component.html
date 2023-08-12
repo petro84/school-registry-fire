@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <p-dialog
   header="Register"
   [(visible)]="showRegisterDialog"
@@ -8,36 +9,96 @@
 >
   <form [formGroup]="form" (ngSubmit)="createAccount(form.value)">
     <div class="px-6 mt-2">
-      <input
-        type="text"
-        placeholder="First Name"
-        class="p-inputtext p-component input w-full mb-4"
-        formControlName="firstName"
-      />
-      <input
-        type="text"
-        placeholder="Last Name"
-        class="p-inputtext p-component input w-full mb-4"
-        formControlName="lastName"
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        class="p-inputtext p-component input w-full mb-4"
-        formControlName="email"
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        class="p-inputtext p-component input w-full mb-4"
-        formControlName="password"
-      />
-      <input
-        type="password"
-        placeholder="Confirm Password"
-        class="p-inputtext p-component input w-full mb-4"
-        formControlName="confirmPassword"
-      />
+      <div class="mb-4">
+        <input
+          type="text"
+          placeholder="First Name"
+          class="p-inputtext p-component input w-full"
+          [ngClass]="{
+            'ng-dirty ng-invalid':
+              !form.controls['firstName'].valid &&
+              form.controls['firstName'].touched
+          }"
+          formControlName="firstName"
+        />
+      </div>
+      <div class="mb-4">
+        <input
+          type="text"
+          placeholder="Last Name"
+          class="p-inputtext p-component input w-full"
+          [ngClass]="{
+            'ng-dirty ng-invalid':
+              !form.controls['lastName'].valid &&
+              form.controls['lastName'].touched
+          }"
+          formControlName="lastName"
+        />
+      </div>
+      <div class="mb-4">
+        <input
+          type="email"
+          placeholder="Email"
+          class="p-inputtext p-component input w-full"
+          [ngClass]="{
+            'ng-dirty ng-invalid':
+              !form.controls['email'].valid && form.controls['email'].touched
+          }"
+          formControlName="email"
+        />
+        <small
+          *ngIf="form.controls['email'].errors?.['email']"
+          class="p-error block ml-3"
+          >Invalid email</small
+        >
+      </div>
+      <div class="mb-4">
+        <input
+          type="password"
+          placeholder="Password"
+          [ngClass]="{
+            'ng-dirty ng-invalid':
+              !form.controls['password'].valid &&
+              form.controls['password'].touched
+          }"
+          class="p-inputtext p-component input w-full"
+          formControlName="password"
+        />
+        <small
+          *ngIf="form.controls['password'].errors?.['pattern']"
+          class="p-error block ml-3"
+        >
+          Password must:
+          <ul>
+            <li>Be 8 characters or more</li>
+            <li>Contain at least 1</li>
+            <ul>
+              <li>Number</li>
+              <li>Lowercase letter</li>
+              <li>Uppercase letter</li>
+              <li>Special character (@$!%*#?&^_-)</li>
+            </ul>
+          </ul>
+        </small>
+      </div>
+      <div class="mb-4">
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          [ngClass]="{
+            'ng-dirty ng-invalid':
+              !form.controls['confirmPassword'].valid &&
+              form.controls['confirmPassword'].touched
+          }"
+          class="p-inputtext p-component input w-full"
+          formControlName="confirmPassword"
+        />
+        <small
+          *ngIf="form.errors?.['not_matching'] && (form.controls['confirmPassword'].touched || form.controls['confirmPassword'].dirty)"
+          class="p-error block ml-3"
+          >Passwords do not match</small
+        >
+      </div>
     </div>
     <div class="flex justify-content-center my-4">
       <button
