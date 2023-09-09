@@ -7,6 +7,7 @@
           [value]="teachers"
           scrollHeight="300px"
           [itemSize]="130"
+          *ngIf="teachers.length > 0; else noTeachers"
         >
           <ng-template pTemplate="header">
             <div
@@ -99,3 +100,8 @@
     </button>
   </section>
 </div>
+<ng-template #noTeachers>
+  <div class="h-26rem flex justify-content-center align-items-center font-light">
+      <span class="text-4xl">No teachers found</span>
+  </div>
+</ng-template>
